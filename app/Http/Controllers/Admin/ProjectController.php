@@ -33,8 +33,6 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request);
-
         $val_data = $request->validated();
 
         $val_data['slug'] = Project::generateSlug($request->title);
@@ -62,7 +60,13 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', ['project' => $project]);
+        return view(
+            'admin.projects.edit',
+            [
+                'project' => $project,
+                'types' => Type::all()
+            ]
+        );
     }
 
     /**

@@ -24,6 +24,20 @@
             <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror"
                 placeholder="Edit project title" aria-describedby="helpId" value="{{ old('title', $project->title) }}">
         </div>
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Choose a Typology</label>
+            <select class="form-select form-select @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
+                <option selected disabled>Select one</option>
+                <option>Untyped</option>
+
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}"
+                        {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}>
+                        {{ $type->name }}</option>
+                @endforeach
+
+            </select>
+        </div>
         <div class="mb-4">
             <label for="cover_image" class="form-label">Edit Image</label>
             <input type="file" name="cover_image" id="cover_image"

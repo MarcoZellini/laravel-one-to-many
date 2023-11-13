@@ -23,6 +23,7 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type_id' => ['nullable', Rule::exists('types', 'id')],
             'title' => ['required', 'string', 'min:3', 'max:80', Rule::unique('projects')],
             'description' => ['nullable', 'string', 'max:300'],
             'cover_image' =>  ['nullable', 'image', 'max:1024'],
