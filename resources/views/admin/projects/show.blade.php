@@ -8,7 +8,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="fw-bold">{{ $project->title }}</h3>
-                            <p>Project Number: # {{ $project->id }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>Project Number: # {{ $project->id }}</p>
+                                <span class="badge rounded-pill text-bg-primary">
+                                    {{ $project->type_id == null ? 'Untyped' : $project->type?->name }}
+                                </span>
+                            </div>
                         </div>
 
                         <div>
