@@ -72,6 +72,28 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return to_route('admin.types.index')->with('message', 'Well Done! Type Deleted successfully!');
+    }
+
+    public function trashed()
+    {
+        return view('admin.types.trash', ['trashedTypes' => Type::onlyTrashed()->orderByDesc('id')->paginate(7)]);
+    }
+
+    public function restoreTrash($slug)
+    {
+        $type = Type::withTrashed()->where('slug', '=', $slug)->first();
+        $type->restore();
+        return to_route('admin.types.trash')->with('message', 'Well Done! Type Restored Successfully!');
+    }
+
+    public function forceDestroy($slug)
+    {
+        $type = Type::withTrashed()->where('slug', '=', $slug)->first();
+
+        $type->forceDelete();
+
+        return to_route('admin.types.trash')->with('message', 'Well Done! Type Deleted Successfully!');
     }
 }

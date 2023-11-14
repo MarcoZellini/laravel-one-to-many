@@ -23,13 +23,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('projects/trash', [ProjectController::class, 'trashed'])->name('trash');
-    Route::put('projects/{project}/restore', [ProjectController::class, 'restoreTrash'])->name('restore');
-    Route::delete('projects/{project}/destroy', [ProjectController::class, 'forceDestroy'])->name('forceDestroy');
+    Route::get('projects/trash', [ProjectController::class, 'trashed'])->name('projects.trash');
+    Route::put('projects/{project}/restore', [ProjectController::class, 'restoreTrash'])->name('projects.restore');
+    Route::delete('projects/{project}/destroy', [ProjectController::class, 'forceDestroy'])->name('projects.forceDestroy');
     Route::resource('projects', ProjectController::class)->parameters([
         'projects' => 'project:slug'
     ]);
-
+    Route::get('types/trash', [TypeController::class, 'trashed'])->name('types.trash');
+    Route::put('types/{type}/restore', [TypeController::class, 'restoreTrash'])->name('types.restore');
+    Route::delete('types/{type}/destroy', [TypeController::class, 'forceDestroy'])->name('types.forceDestroy');
     Route::resource('types', TypeController::class)->parameters([
         'types' => 'type:slug'
     ]);

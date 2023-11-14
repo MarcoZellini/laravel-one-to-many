@@ -110,7 +110,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <form
-                                                                    action="{{ route('admin.restore', ['project' => $project->slug]) }}"
+                                                                    action="{{ route('admin.projects.restore', ['project' => $project->slug]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PUT')
@@ -168,7 +168,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <form
-                                                                    action="{{ route('admin.forceDestroy', ['project' => $project->slug]) }}"
+                                                                    action="{{ route('admin.projects.forceDestroy', ['project' => $project->slug]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')

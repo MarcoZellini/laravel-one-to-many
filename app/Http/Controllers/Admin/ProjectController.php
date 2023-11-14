@@ -115,7 +115,7 @@ class ProjectController extends Controller
     {
         $project = Project::withTrashed()->where('slug', '=', $slug)->first();
         $project->restore();
-        return to_route('admin.trash')->with('message', 'Well Done! Project restored successfully!');
+        return to_route('admin.projects.trash')->with('message', 'Well Done! Project restored successfully!');
     }
 
     public function forceDestroy($slug)
@@ -124,6 +124,6 @@ class ProjectController extends Controller
 
         $project->forceDelete();
 
-        return to_route('admin.trash')->with('message', 'Well Done! Project deleted successfully!');
+        return to_route('admin.projects.trash')->with('message', 'Well Done! Project deleted successfully!');
     }
 }

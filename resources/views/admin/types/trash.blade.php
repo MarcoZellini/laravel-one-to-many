@@ -7,22 +7,22 @@
                 <h2 class="fs-4 text-secondary flex-grow-1 m-0">
                     {{ __('Dashboard') }}
                 </h2>
-                <a class="btn btn-primary d-flex align-items-center mx-1" href="{{ route('admin.projects.create') }}">
+                <a class="btn btn-primary d-flex align-items-center mx-1" href="{{ route('admin.types.create') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                         <path
                             d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg>Add New Project
+                    </svg>Add New type
                 </a>
-                <a class="btn btn-success d-flex align-items-center mx-1" href="{{ route('admin.projects.index') }}">
+                <a class="btn btn-success d-flex align-items-center mx-1" href="{{ route('admin.types.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-kanban me-2" viewBox="0 0 16 16">
                         <path
                             d="M13.5 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h11zm-11-1a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-11z" />
                         <path
                             d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3z" />
-                    </svg>Back to Projects
+                    </svg>Back to Types
                 </a>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card mb-5">
-                    <h5 class="card-header">{{ __('Project List') }}</h5>
+                    <h5 class="card-header">{{ __('type List') }}</h5>
 
                     <div class="card-body p-0">
                         @if (session('status'))
@@ -50,7 +50,6 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">COVER IMAGE</th>
                                         <th scope="col">TITLE</th>
                                         <th scope="col">DATE</th>
                                         <th scope="col">ACTIONS</th>
@@ -58,27 +57,15 @@
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($trashedProjects as $project)
+                                    @forelse ($trashedTypes as $type)
                                         <tr class="">
-                                            <td>{{ $project->id }}</td>
+                                            <td>{{ $type->id }}</td>
+                                            <td>{{ $type->title }}</td>
+                                            <td>{{ $type->created_at }}</td>
                                             <td>
-                                                @if (str_contains($project->cover_image, 'http'))
-                                                    <img class="card-img" src="{{ asset($project->cover_image) }}"
-                                                        alt="Project_image">
-                                                @else
-                                                    <img class="card-img"
-                                                        src="{{ asset('storage/' . $project->cover_image) }}"
-                                                        alt="Project_image">
-                                                @endif
-                                            </td>
-                                            <td>{{ $project->title }}</td>
-                                            <td>{{ $project->created_at }}</td>
-                                            <td>
-
-
                                                 <!-- Modal trigger button -->
                                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                    data-bs-target="#modalId-restore-{{ $project->id }}">
+                                                    data-bs-target="#modalId-restore-{{ $type->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-kanban" viewBox="0 0 16 16">
                                                         <path
@@ -91,26 +78,26 @@
 
                                                 <!-- Modal Body -->
                                                 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                                <div class="modal fade" id="modalId-restore-{{ $project->id }}"
+                                                <div class="modal fade" id="modalId-restore-{{ $type->id }}"
                                                     tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
                                                     role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalTitleId">Restoring Project
-                                                                    {{ $project->id }}</h5>
+                                                                <h5 class="modal-title" id="modalTitleId">Restoring type
+                                                                    {{ $type->id }}</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Do you want to restore this project?
+                                                                Do you want to restore this type?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <form
-                                                                    action="{{ route('admin.restore', ['project' => $project->slug]) }}"
+                                                                    action="{{ route('admin.types.restore', ['type' => $type->slug]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PUT')
@@ -133,7 +120,7 @@
 
                                                 <!-- Modal trigger button -->
                                                 <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal"
-                                                    data-bs-target="#modalId-force-delete-{{ $project->id }}">
+                                                    data-bs-target="#modalId-force-delete-{{ $type->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                         <path
@@ -146,18 +133,18 @@
 
                                                 <!-- Modal Body -->
                                                 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                                <div class="modal fade" id="modalId-force-delete-{{ $project->id }}"
+                                                <div class="modal fade" id="modalId-force-delete-{{ $type->id }}"
                                                     tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                                                    role="dialog" aria-labelledby="modalTitleId-{{ $project->id }}"
+                                                    role="dialog" aria-labelledby="modalTitleId-{{ $type->id }}"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="modalTitleId-{{ $project->id }}">Deleting
-                                                                    project
-                                                                    #{{ $project->id }}</h5>
+                                                                    id="modalTitleId-{{ $type->id }}">Deleting
+                                                                    type
+                                                                    #{{ $type->id }}</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
@@ -168,7 +155,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <form
-                                                                    action="{{ route('admin.forceDestroy', ['project' => $project->slug]) }}"
+                                                                    action="{{ route('admin.types.forceDestroy', ['type' => $type->slug]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -191,7 +178,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td>There aren't projects! 😒</td>
+                                            <td>There aren't types! 😒</td>
                                         </tr>
                                     @endforelse
 
@@ -201,7 +188,7 @@
                     </div>
                 </div>
             </div>
-            {{ $trashedProjects->links('pagination::bootstrap-5') }}
+            {{ $trashedTypes->links('pagination::bootstrap-5') }}
         </div>
     </div>
 @endsection
